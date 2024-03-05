@@ -4,21 +4,10 @@
     <arg name="x" default="-8.211123"/>
     <arg name="y" default="1.471889"/>
     <arg name="z" default="0.0"/>
-    <arg name="yaw" default="3.135365"/>
+    <arg name="yaw" default="0"/>
 
     <!--group ns="$(arg robot_id)"-->
         <arg name="prefix" value="wcias_" />
-
-        <!-- Load robot description-->
-        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find wheelchair_iaslab_description)/urdf/wheelchair_iaslab.xacro"/>
-
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
-            <param name="use_tf_static" value="false"/>
-            <param name="publish_frequency" type="double" value="20.0"/>
-        </node>
-        
-    
-        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
 
         <!-- Spawn robot in gazebo -->
         <node name="spawn_wheelchair_iaslab_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
@@ -37,14 +26,7 @@
             <arg name="prefix" value="$(arg prefix)" /> 
         </include>
 
-        <!--<include file="$(find wheelchair_iaslab_navigation)/launch/move_base_mapless.launch" /> -->
-        <include file="$(find wheelchair_iaslab_navigation)/launch/mmmm.launch" /> 
-
-
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find wheelchair_iaslab_navigation)/rviz/navigation_display.rviz"/>
-        
-
-    <!--/group-->
+    <include file="$(find wheelchair_iaslab_init)/launch/init.launch" /> 
 
 
 </launch>

@@ -21,10 +21,10 @@
                   -model $(arg robot_id)" />
 
 
-        <include file="$(find wheelchair_iaslab_control)/launch/control.launch">
+        <!-- <include file="$(find wheelchair_iaslab_control)/launch/control.launch">
             <arg name="simulation" value="true"/>
             <arg name="prefix" value="$(arg prefix)" /> 
-        </include>
+        </include> -->
 
     <include file="$(find wheelchair_iaslab_init)/launch/init.launch" /> 
 

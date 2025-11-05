@@ -1,32 +1,39 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="robot_id" default="wheelchair_iaslab" />
-    <arg name="x" default="-8.211123"/>
-    <arg name="y" default="1.471889"/>
+    <arg name="x" default="-2"/>
+    <arg name="y" default="0"/>
     <arg name="z" default="0.0"/>
     <arg name="yaw" default="0"/>
+    <arg name="nav_stack"   default="true"/>
 
     <!--group ns="$(arg robot_id)"-->
-        <arg name="prefix" value="wcias_" />
+    <arg name="prefix" value="wcias_" />
 
-        <!-- Spawn robot in gazebo -->
-        <node name="spawn_wheelchair_iaslab_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-            args="-x $(arg x)
-                  -y $(arg y)
-                  -z $(arg z)
-                  -Y $(arg yaw)
-                  -unpause
-                  -urdf
-                  -param robot_description
-                  -model $(arg robot_id)" />
+    <!-- Spawn robot in gazebo -->
+    <node name="spawn_wheelchair_iaslab_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-x $(arg x)
+                -y $(arg y)
+                -z $(arg z)
+                -Y $(arg yaw)
+                -unpause
+                -urdf
+                -param robot_description
+                -model $(arg robot_id)" />
 
 
-        <!-- <include file="$(find wheelchair_iaslab_control)/launch/control.launch">
-            <arg name="simulation" value="true"/>
-            <arg name="prefix" value="$(arg prefix)" /> 
-        </include> -->
+    <include file="$(find wheelchair_iaslab_control)/launch/control.launch">
+        <arg name="simulation" value="true"/>
+        <arg name="prefix" value="$(arg prefix)" /> 
+    </include> 
 
-    <include file="$(find wheelchair_iaslab_init)/launch/init.launch" /> 
+    <include file="$(find wheelchair_iaslab_description)/launch/urdf_sensor.launch"/> 
+
+
+    <include file="$(find wheelchair_iaslab_init)/launch/init.launch">
+        <arg name="real"   value="false"/>
+        <arg name="nav_stack"   value="$(arg nav_stack)"/>
+    </include> 
 
 
 </launch>
